@@ -1,0 +1,459 @@
+@import url('https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+    --text-color: #ffffff;
+    --block-color: #434343;
+    --important-color: rgb(0, 223, 250);;
+    --title-size: 50px;
+    --subtitle-size: 30px;
+    --description-size: 24px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#app {
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    background-color: #000;
+    background-repeat:no-repeat;
+    height: 100vh;
+    background-image: radial-gradient(circle at top right, rgba(121, 68, 154, 0.13), transparent),
+    radial-gradient(circle at 20% 80%, rgba(41, 196, 255, 0.13), transparent)
+}
+
+canvas {
+    position: fixed;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    background-color: #000;
+    background-image: radial-gradient(circle at top right, rgba(121, 68, 154, 0.13), transparent),
+    radial-gradient(circle at 20% 80%, rgba(41, 196, 255, 0.13), transparent)
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    margin: 0 auto;
+    box-sizing: border-box;
+    max-width: 1920px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.title, .subtitle, .description {
+    font-family: Bellota Text;
+}
+
+.title {
+    text-align: center;
+    font-size: var(--title-size);
+    color: var(--text-color);
+}
+
+.subtitle {
+    font-size: var(--subtitle-size);
+    color: var(--text-color);
+}
+
+.description {
+    font-size: var(--description-size);
+    color: var(--text-color);
+}
+
+.calendar__el {
+    padding: 20px;
+    text-align: center;
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.4),
+    -5px -5px 5px rgba(255, 255, 255, 0.4),
+    -5px 5px 5px rgba(255, 255, 255, 0.4),
+    5px -5px 5px rgba(255, 255, 255, 0.4);
+}
+
+.calendar__el>h2 {
+    margin: 0;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.calendar {
+    width: 48%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: grid;
+    grid-gap: 10px;
+    border-radius: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+}
+
+.disappearance {
+    animation: smooth_disappearance .5s ease-in-out forwards;
+}
+
+.present-title__text {
+    width: 48%;
+}
+
+.scroll-hint {
+    margin-top: 60px;
+    width: 100px;
+    height: 100px;
+    align-self: flex-start;
+    animation: scroll_hint 1.5s linear infinite;
+}
+
+.scroll-hint_img {
+    transform: scale(1);
+    transition: .5s;
+}
+
+.scroll-hint_img:hover {
+    transform: scale(1.1);
+}
+
+.scroll-hint_img {
+    width: 100%;
+}
+
+#present_block {
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color: transparent;
+}
+
+.landing-section {
+    margin-bottom: 80px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
+.m-40 {
+    margin-top: 40px;
+}
+
+.list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+}
+
+.list__block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 30px;
+    padding: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: all 0.3s ease;
+}
+
+.list__block_el {
+    text-align: center;
+    margin: 15px;
+}
+
+.btn-more {
+    font-family: Bellota Text;
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
+    background: none;
+    border-radius: 15px;
+    border: solid 2px var(--important-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.btn-more:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 223, 250, 0.5);
+}
+
+.push {
+    left: 20px;
+    width: 100%;
+    counter-reset: list-counter;
+    list-style: none;
+    position: relative;
+    padding-left: 90px;
+    padding-right: 20px;
+    overflow-y: scroll;
+}
+
+.push li {
+    position: relative;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.push li::before {
+    counter-increment: list-counter;
+    content: counter(list-counter);
+    position: absolute;
+    left: -80px;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    font-size: var(--subtitle-size);
+    color: var(--text-color);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.4),
+    -5px -5px 5px rgba(255, 255, 255, 0.4),
+    -5px 5px 5px rgba(255, 255, 255, 0.4),
+    5px -5px 5px rgba(255, 255, 255, 0.4);
+}
+
+.scroll-list li {
+    max-height: 300px;
+}
+
+.scroll-wrapper {
+    display: flex;
+    position: relative;
+    max-height: 500px;
+}
+
+.scroll-list {
+    overflow-y: scroll;
+    height: 500px;
+    width: 100%;
+}
+
+.scroll-list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 0;
+}
+
+.scroll-x__el {
+    min-width: 80%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.rocket-wrapper {
+    display: none;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    position: fixed;
+    width: 25px;
+    height: 50px;
+}
+
+.rocket {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-size: cover;
+    background-position: center;
+    background-image: url("spaceship.png");
+    z-index: 1;
+}
+
+.flame {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 15px;
+    background: radial-gradient(circle at 50% 0%, orange, red);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: flame-flicker 0.3s infinite ease-in-out;
+    z-index: 0;
+}
+
+.email-form {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+    color: #ffffff;
+    text-align: center;
+}
+
+.email-form input {
+    padding: 12px 20px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.email-form input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.email-form input:focus {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.email-form button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #00bcd4, #009688);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.email-form button:hover {
+    box-shadow: 0 0 12px #00bcd4;
+}
+
+@media (max-width: 799px) {
+
+    :root {
+        --title-size: 35px;
+        --subtitle-size: 25px;
+        --description-size: 18px;
+    }
+
+    .calendar {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    }
+
+    .calendar__el {
+        padding: 10px;
+    }
+
+    .push {
+        padding-left: 70px;
+    }
+
+    .push li::before {
+        width: 40px;
+        height: 40px;
+        border-radius: 15px;
+        left: -60px;
+    }
+}
+
+@media (max-width: 599px) {
+    :root {
+        --title-size: 30px;
+        --subtitle-size: 20px;
+        --description-size: 16px;
+    }
+
+    .calendar {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    }
+
+    .scroll-hint {
+        margin-top: 20px;
+        width: 75px;
+        height: 75px;
+    }
+}
+
+@media (max-width: 499px) {
+    :root {
+        --title-size: 25px;
+        --subtitle-size: 18px;
+        --description-size: 14px;
+    }
+
+    .calendar, .present-title__text{
+        text-align: center;
+        width: 100%;
+    }
+
+    .calendar {
+        order: 1;
+    }
+
+    .scroll-hint {
+        margin-top: 15px;
+        width: 50px;
+        height: 50px;
+        order: 2;
+        align-self: flex-start;
+    }
+
+    .calendar__el>h2 {
+        font-size: var(--description-size);
+        grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+    }
+
+    nav {
+        transition: .3s;
+        width: 50%;
+    }
+
+    section {
+        top: 10px;
+    }
+
+    .push {
+        padding-left: 55px;
+    }
+
+    .push li::before {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        left: -45px;
+    }
+}

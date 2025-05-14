@@ -1,0 +1,118 @@
+@keyframes smooth_disappearance {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(.8);
+    }
+}
+
+@keyframes smooth_right {
+    0% {
+       transform: translateX(-300px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes smooth_left {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-300px);
+    }
+}
+
+@keyframes smooth_up {
+    0% {
+        transform: translateY(-50px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes scroll_hint {
+    0% {
+        transform: translateY(10px);
+    }
+
+    25% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    75% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(10px);
+    }
+}
+
+.loading {
+    display: inline-block;
+    position: relative;
+}
+
+.loading::after {
+    content: '\00a0\00a0\00a0';
+    animation: progress-ellipsis 1s infinite;
+    position: absolute;
+}
+
+.settings-icon {
+    display: inline-block;
+}
+
+.animate-nav-reverse {
+    animation: smooth_left.3s ease-out forwards;
+}
+
+@keyframes progress-ellipsis {
+    0% {
+        content: '\00a0\00a0\00a0';
+    }
+    30% {
+        content: '.\00a0\00a0';
+    }
+    60% {
+        content: '..\00a0';
+    }
+    90% {
+        content: '...';
+    }
+}
+
+.scale-anime {
+    transform: scale(.9);
+    filter: blur(1px);
+    transition-duration: 0.5s;
+    min-height: 250px;
+}
+
+.scale-anime-not-visible {
+    filter: blur(0px);
+    transform: scale(1);
+}
+
+@keyframes appearance {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
