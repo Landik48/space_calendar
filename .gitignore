@@ -12,7 +12,7 @@ frontend/.DS_Store
 frontend/dist
 frontend/dist-ssr
 frontend/coverage
-nginx
+venv
 *.local
 
 /cypress/videos/

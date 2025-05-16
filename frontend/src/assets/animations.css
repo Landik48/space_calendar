@@ -80,6 +80,10 @@
     animation: smooth_left.3s ease-out forwards;
 }
 
+.smooth_disappearance {
+    animation: smooth_disappearance .3s forwards ease-in-out;
+}
+
 @keyframes progress-ellipsis {
     0% {
         content: '\00a0\00a0\00a0';

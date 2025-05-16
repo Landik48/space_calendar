@@ -89,6 +89,38 @@ main {
     5px -5px 5px rgba(255, 255, 255, 0.4);
 }
 
+.calendar_box-shadow_red {
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 1),
+    0px 0px 15px rgba(255, 255, 255, .6);
+}
+
+.calendar_box-shadow_green {
+    box-shadow: 0px 0px 10px rgba(0, 255, 0, 1),
+    0px 0px 15px rgba(255, 255, 255, .6);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: black;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
 .calendar__el>h2 {
     margin: 0;
 }
@@ -158,6 +190,10 @@ main {
 }
 
 .m-40 {
+    margin-top: 40px;
+}
+
+.c {
     margin-top: 40px;
 }
 
@@ -314,52 +350,13 @@ main {
     z-index: 0;
 }
 
-.email-form {
-    position: relative;
-    z-index: 1;
+section {
+    margin-top: 100px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    max-width: 400px;
-    margin: 0 auto;
-    color: #ffffff;
-    text-align: center;
-}
-
-.email-form input {
-    padding: 12px 20px;
+    justify-content: center;
+    align-items: start;
     width: 100%;
-    border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    outline: none;
-    transition: background 0.3s ease;
-}
-
-.email-form input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.email-form input:focus {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.email-form button {
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #00bcd4, #009688);
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.email-form button:hover {
-    box-shadow: 0 0 12px #00bcd4;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 799px) {
@@ -440,10 +437,6 @@ main {
     nav {
         transition: .3s;
         width: 50%;
-    }
-
-    section {
-        top: 10px;
     }
 
     .push {

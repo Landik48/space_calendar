@@ -184,7 +184,8 @@ function ScaleForScroll(el) {
     <motion.ol class="push scroll-list" @scroll="ScaleForScroll($event.target)"
                :initial="{ opacity: 0, y: 100 }"
                :while-in-view="{ opacity: 1, y: 0 }"
-               :transition="{ duration: 0.6, ease: 'easeOut', delay: .5}">
+               :transition="{ duration: 0.6, ease: 'easeOut', delay: .5}"
+    >
       <li class="scale-anime scale-anime-not-visible">
         <h1 class="subtitle">Спутники</h1>
         <p class="description">С помощью этого сервиса вы легко узнаете, какая цель запуска данного спутника, его местоположение и много другого. Мы отслеживаем предстоящие старты и окончание миссий, чтобы вы всегда были в курсе самых свежих и важных новостей из мира орбитальных технологий. Всё это — в одном месте, без лишнего поиска.</p>
@@ -214,12 +215,12 @@ function ScaleForScroll(el) {
       :while-in-view="{ opacity: 1, y: 0 }"
       :transition="{ duration: 0.6, ease: 'easeOut'}"
     >Получайте актуальные новости в мире космоса</motion.div>
-    <motion.div class="email-form-container m-40"
+    <motion.div class="form-container m-40"
     :initial="{ opacity: 0, y: 50 }"
     :while-in-view="{ opacity: 1, y: 0 }"
     :transition="{ duration: 0.6, ease: 'easeOut'}"
     >
-      <form class="email-form">
+      <form class="form">
         <input type="email" placeholder="Введите ваш email" required />
         <motion.button class="btn-continue" type="submit" :whileHover="{ scale: 1.1 }" :whilePress="{ scale: 0.95 }">
         Подписаться</motion.button>
@@ -240,7 +241,7 @@ function ScaleForScroll(el) {
   </div>
 </template>
 
-<style>
+<style scoped>
 .group {
   display: flex;
   flex-wrap: wrap;

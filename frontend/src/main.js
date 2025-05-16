@@ -1,3 +1,4 @@
+import './assets/form.css'
 import './assets/main.css'
 import './assets/nav.css'
 import './assets/animations.css'
@@ -42,4 +43,5 @@ app.mixin({
         AOS.init()
     }
 })
-app.use(router).mount('#app')
+app.use(router)
+app.mount('#app')
