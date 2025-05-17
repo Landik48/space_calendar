@@ -28,7 +28,8 @@ def Calendar(data: DateModel):
             obj['events'] = events
             result.append(obj)
         return result
-    except:
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
         return {"error": "Произошла ошибка, повторите попытку позже"}
 
 @app.get('/api/satellites')
@@ -64,5 +65,6 @@ def Missions() :
                 })
             except: print("Возникла ошибка")
         return missions
-    except: 
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
         return {"error": "Произошла ошибка, повторите попытку позже"}
