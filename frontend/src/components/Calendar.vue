@@ -32,9 +32,7 @@ async function sendDate() {
     month: splitDate[1],
   })
   data.value = await PostRequest(json, 'http://45.90.216.58/api/calendar')
-  setTimeout(() => {
-    loading.value = false
-  }, 2000)
+  loading.value = false
 }
 </script>
 

@@ -136,11 +136,11 @@ function ScaleForScroll(el) {
     >Что умеет CaSpace?
     </motion.div>
 
-    <div class="scroll m-40 flex flex-col gap-8">
+    <div class="big-block m-40">
       <motion.div
           v-for="(skill, i) in skills"
           :key="i"
-          class="list__block scroll-x__el p-6 rounded-xl shadow-md bg-white"
+          class="list__block big-block__el"
           :initial="{ opacity: 0, y: 100 }"
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }"

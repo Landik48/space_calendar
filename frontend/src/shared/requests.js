@@ -12,3 +12,17 @@ export async function PostRequest(json, url) {
         console.error(error)
     }
 }
+
+export async function GetRequest(url) {
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        return await response.json()
+    } catch (error) {
+        console.error(error)
+    }
+}
