@@ -7,7 +7,7 @@ const loading = ref(true)
 const data = ref([])
 
 const getData = async () => {
-  data.value = await GetRequest('http://localhost/api/missions')
+  data.value = await GetRequest('http://45.90.216.58/api/missions')
   loading.value = false
 }
 
