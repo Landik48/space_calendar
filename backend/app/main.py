@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import requests, re
+import requests, re, math
 from bs4 import BeautifulSoup
+from skyfield.api import EarthSatellite, load, wgs84
 # http POST http://localhost:8000/api/calendar year="2025" month="05"
 app = FastAPI()
 
@@ -32,9 +33,41 @@ def Calendar(data: DateModel):
         print(f"Произошла ошибка: {e}")
         return {"error": "Произошла ошибка, повторите попытку позже"}
 
+
 @app.get('/api/satellites')
-def Satellites() :
-    return {"message": "Календарь"}
+def Satellites():
+    try:
+        response = requests.get("https://celestrak.org/NORAD/elements/gp.php?GROUP=last-30-days&FORMAT=tle")
+        lines = response.text.strip().split("\n")
+        satellites = []
+        ts = load.timescale()
+        now = ts.now()
+        for i in range(0, len(lines), 3):
+            name = lines[i].strip()
+            line1 = lines[i + 1].strip()
+            line2 = lines[i + 2].strip()
+
+            satellite = EarthSatellite(line1, line2, name, ts)
+            geocentric = satellite.at(now)
+            subpoint = wgs84.subpoint(geocentric)
+
+            lat = subpoint.latitude.degrees
+            lon = subpoint.longitude.degrees
+            alt = subpoint.elevation.km
+
+            if any(math.isnan(x) or math.isinf(x) for x in [lat, lon, alt]):
+                continue  
+        
+            satellites.append({
+                "name": name,
+                "lat": lat,
+                "lng": lon
+            })
+        return satellites[:100]
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
+        return {"error": "Произошла ошибка, повторите попытку позже"}
+
 
 @app.get('/api/missions')
 def Missions() :

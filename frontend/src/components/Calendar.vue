@@ -56,7 +56,7 @@ async function sendDate() {
     :initial="{ opacity: 0, y: -50 }"
     :while-in-view="{ opacity: 1, y: 0 }"
     :transition="{ duration: .6, ease: 'easeOut'}">
-      Загрузка
+      ⚙️ Загрузка
     </motion.div>
   </section>
 
