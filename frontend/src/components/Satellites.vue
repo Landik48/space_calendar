@@ -1,7 +1,6 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import {GetRequest} from "@/shared/requests.js";
-import {dataR} from "@/shared/lists.js";
 import L from 'leaflet'
 import {motion} from "motion-v"
 import 'leaflet/dist/leaflet.css'
