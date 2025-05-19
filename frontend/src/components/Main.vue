@@ -43,6 +43,7 @@ class Rocket {
 }
 
 onMounted(() => {
+  document.title = "CaSpace -> Главная";
   init_particles()
   const rocket = new Rocket()
   settings_icon = document.querySelector(".settings-icon")

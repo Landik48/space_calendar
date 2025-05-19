@@ -12,6 +12,7 @@ const getData = async () => {
 }
 
 onMounted(() => {
+  document.title = "CaSpace -> Миссии";
   getData()
 })
 

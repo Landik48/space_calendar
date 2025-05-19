@@ -1,12 +1,16 @@
 <script setup>
 import {motion} from "motion-v"
 import {PostRequest} from "@/shared/requests.js";
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 
 let loading = ref(false)
 const data = ref(false)
 const show = ref(false)
 const selectedDate = ref(null)
+
+onMounted(() => {
+  document.title = "CaSpace -> Календарь";
+})
 
 const openModal = (obj) => {
   if (obj['events'].length > 0) {
