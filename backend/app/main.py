@@ -1,14 +1,37 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import requests, re, math
+from fastapi import FastAPI, Depends
+from pydantic import BaseModel, Field, EmailStr
+import requests, re, math, os
 from bs4 import BeautifulSoup
 from skyfield.api import EarthSatellite, load, wgs84
-# http POST http://localhost:8000/api/calendar year="2025" month="05"
+from sqlalchemy import create_engine, Column, String, Integer
+from sqlalchemy.orm import sessionmaker, Session, declarative_base
+# http POST http://localhost:8000/api/set_email email="example.ex@email.com"
 app = FastAPI()
+DATABASE_URL = "sqlite:///./sqlite.db"
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
 
 class DateModel(BaseModel):
     year: str
     month: str
+
+class EmailModel(BaseModel):
+    email: EmailStr | None = Field(default=None)
+
+class Emails(Base):
+    __tablename__ = "emails"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, index=True, unique=True)
+
+Base.metadata.create_all(bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 @app.post('/api/calendar')
 def Calendar(data: DateModel):
@@ -31,7 +54,7 @@ def Calendar(data: DateModel):
         return result
     except Exception as e:
         print(f"Произошла ошибка: {e}")
-        return {"error": "Произошла ошибка, повторите попытку позже"}
+        return {"output": "Произошла ошибка, повторите попытку позже"}
 
 
 @app.get('/api/satellites')
@@ -66,7 +89,7 @@ def Satellites():
         return satellites[:100]
     except Exception as e:
         print(f"Произошла ошибка: {e}")
-        return {"error": "Произошла ошибка, повторите попытку позже"}
+        return {"output": "Произошла ошибка, повторите попытку позже"}
 
 
 @app.get('/api/missions')
@@ -100,4 +123,22 @@ def Missions() :
         return missions
     except Exception as e:
         print(f"Произошла ошибка: {e}")
-        return {"error": "Произошла ошибка, повторите попытку позже"}
+        return {"output": "Произошла ошибка, повторите попытку позже"}
+    
+
+@app.post("/api/set_email")
+def set_email(data: EmailModel, db: Session = Depends(get_db)):
+    print(os.getcwd())
+    try:
+        check = db.query(Emails.email).filter_by(email=data.email).first() is not None
+        if check:
+            return {"output": "Ваша почта уже была добавлена в рассылку"}
+        else:
+            db_item = Emails(**data.model_dump())   
+            db.add(db_item)
+            db.commit()
+            db.refresh(db_item) 
+            return {"output": "Ваша почта добавлена в список рассылки"}
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
+        return {"output": "Произошла ошибка, повторите попытку позже"}

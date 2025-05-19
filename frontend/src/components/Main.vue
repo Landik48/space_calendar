@@ -3,11 +3,15 @@ import {onMounted, ref, onBeforeUnmount} from "vue";
 import {init_particles} from "@/shared/background_main.js"
 import {motion} from "motion-v"
 import {skills, services} from "@/shared/lists.js"
+import {PostRequest} from "@/shared/requests.js";
 
 const landing = ref(false)
 let lastScrollY = window.scrollY;
 let settings_icon = null
 let settings_icon_rotate = 0
+const WritedData = ref(null)
+const loading = ref(false)
+const data = ref(null)
 
 class Rocket {
   constructor() {
@@ -91,6 +95,15 @@ function ScaleForScroll(el) {
       lst_li[i].classList.remove('scale-anime-not-visible');
     }
   }
+}
+
+async function sendDate() {
+  loading.value = true
+  const json = JSON.stringify({
+    email: WritedData.value,
+  })
+  data.value = await PostRequest(json, 'http://localhost/api/set_email')
+  loading.value = false
 }
 </script>
 
@@ -181,6 +194,7 @@ function ScaleForScroll(el) {
     :transition="{ duration: 0.6, ease: 'easeOut' }">
       <span class="settings-icon">⚙️</span>Рассмотрим детальнее
     </motion.div>
+
     <motion.ol class="push scroll-list" @scroll="ScaleForScroll($event.target)"
                :initial="{ opacity: 0, y: 100 }"
                :while-in-view="{ opacity: 1, y: 0 }"
@@ -215,13 +229,29 @@ function ScaleForScroll(el) {
       :while-in-view="{ opacity: 1, y: 0 }"
       :transition="{ duration: 0.6, ease: 'easeOut'}"
     >Получайте актуальные новости в мире космоса</motion.div>
-    <motion.div class="form-container m-40"
+
+    <motion.div v-if="loading" class="title w-100 loading"
+                :initial="{ opacity: 0, y: -50 }"
+                :while-in-view="{ opacity: 1, y: 0 }"
+                :transition="{ duration: .6, ease: 'easeOut'}">
+      ⚙️ Загрузка
+    </motion.div>
+
+    <motion.div v-if="data && !loading" class="title w-100 m-40"
+                :initial="{ opacity: 0, y: -50 }"
+                :while-in-view="{ opacity: 1, y: 0 }"
+                :transition="{ duration: .6, ease: 'easeOut'}"
+    >
+      {{data['output']}}
+    </motion.div>
+
+    <motion.div v-if="!data && !loading" class="form-container m-40"
     :initial="{ opacity: 0, y: 50 }"
     :while-in-view="{ opacity: 1, y: 0 }"
     :transition="{ duration: 0.6, ease: 'easeOut'}"
     >
-      <form class="form">
-        <input type="email" placeholder="Введите ваш email" required />
+      <form class="form" @submit.prevent="sendDate">
+        <input type="email" placeholder="Введите ваш email" v-model="WritedData" required />
         <motion.button class="btn-continue" type="submit" :whileHover="{ scale: 1.1 }" :whilePress="{ scale: 0.95 }">
         Подписаться</motion.button>
       </form>
