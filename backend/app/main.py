@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from skyfield.api import EarthSatellite, load, wgs84
 from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.orm import sessionmaker, Session, declarative_base
-# http POST http://localhost:8000/api/set_email email="example.ex@email.com"
+
 app = FastAPI()
 DATABASE_URL = "sqlite:///./sqlite.db"
 engine = create_engine(DATABASE_URL)

@@ -102,7 +102,7 @@ async function sendDate() {
   const json = JSON.stringify({
     email: WritedData.value,
   })
-  data.value = await PostRequest(json, 'http://localhost/api/set_email')
+  data.value = await PostRequest(json, 'http://45.90.216.58/api/set_email')
   loading.value = false
 }
 </script>
